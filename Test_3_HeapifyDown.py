@@ -142,7 +142,7 @@ class MyTestCase(unittest.TestCase):
 
         pq.heapify_down(index=0)
         self.assertEqual(expected, pq.my_tree,
-                         "Heapify_down for a heap with an even number of nodes where we heapify mostly "
+                         "Heapify_down failed for a heap with an even number of nodes where we heapify mostly "
                          "to the right")
 
 

@@ -1,5 +1,5 @@
 import math
-from typing import List, TypeVar, Generic, Tuple
+from typing import List, TypeVar, Generic, Tuple, Optional
 import logging
 
 T = TypeVar("T")
@@ -13,10 +13,11 @@ Node = Tuple[int, T]
 
 class PriorityQueue (Generic[T]):
 
-    def __init__(self, tree: List[Node] = [], is_min_heap: bool = True):
+    def __init__(self, tree: Optional[List[Node]] = None, is_min_heap: bool = True):
         self.my_tree: List[Node] = []
-        for n in tree:
-            self.my_tree.append(n)
+        if tree is not None:
+            for n in tree:
+                self.my_tree.append(n)
         self.is_min_heap = is_min_heap
 
     def node_at_index(self, index: int) -> Node:
@@ -121,11 +122,10 @@ class PriorityQueue (Generic[T]):
         """
         return a[0]==b[0]
 
-
     def is_empty(self) -> bool:
         return len(self) == 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Draws a string representation of this tree, without changing it.
         ( you are welcome to examine this code, but you are not responsible for it.)
@@ -149,10 +149,10 @@ class PriorityQueue (Generic[T]):
                 result += "\n"
         return result
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
-    def to_color_string(self, indices_to_color: List[int] = []):
+    def to_color_string(self, indices_to_color: Optional[List[int]] = None):
         """
         Draws a string representation of this tree, without changing it. For all items in the indices list,
         they will show up in a different color.
@@ -160,6 +160,8 @@ class PriorityQueue (Generic[T]):
         ( you are welcome to examine this code, but you are not responsible for it.)
         :return:
         """
+        if indices_to_color is None:
+            indices_to_color = []
         starters = ["\u001b[31m", "\u001b[32m", "\u001b[33m", "\u001b[34m", "\u001b[35m", "\u001b[36m"]
         reset = "\u001b[0m"
 
@@ -190,7 +192,7 @@ class PriorityQueue (Generic[T]):
             counter += 1
         return result
 
-    def to_string_as_list(self):
+    def to_string_as_list(self) -> str:
         """
         creates a string that has one node per line, listed with an index.
         :return:  string with a linear interpretation of the self.tree. Mostly useful for debugging.
@@ -202,7 +204,7 @@ class PriorityQueue (Generic[T]):
             result += f"{i}:\t{self.my_tree[i]}\n"
         return result
 
-    def clear(self):
+    def clear(self) -> None:
         """
         removes all items from this priority queue.
         :return None:
@@ -225,7 +227,7 @@ class PriorityQueue (Generic[T]):
         logging.info("This is a heap.")
         return True
 
-    def add_value(self, value: T, priority: int = 1):
+    def add_value(self, value: T, priority: int = 1) -> None:
         """
         adds a node to this data structure and makes sure that the my_tree data structure is
         still a heap.
@@ -239,7 +241,7 @@ class PriorityQueue (Generic[T]):
         self.heapify_up(len(self) - 1)
         logging.info(self)
 
-    def heapify_up(self, index: int):
+    def heapify_up(self, index: int) -> None:
         """
         given the index, potentially swaps itself with its parent, and onward up the tree
         as needed to make this a heap.
@@ -277,7 +279,7 @@ class PriorityQueue (Generic[T]):
         logging.info(self)
         return result
 
-    def heapify_down(self, index: int = 0):
+    def heapify_down(self, index: int = 0) -> None:
         """
         The node at index is possibly too high in the tree; we compare it to its children and potentially swap
         it with one of them to put it in better order, and repeat with the node in its new location.
@@ -295,5 +297,5 @@ class PriorityQueue (Generic[T]):
             # TODO: You'll be writing this part! Insert your code here.
 
             # ----------------------
-        # Since this tree is complete, we don't need to worry about the right node if the
+        # Note: Since this tree is complete, we don't need to worry about the right node if the
         # left node was out of bounds.
