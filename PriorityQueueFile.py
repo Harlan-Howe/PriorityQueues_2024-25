@@ -112,6 +112,16 @@ class PriorityQueue (Generic[T]):
             return a[0] < b[0]
         return a[0] > b[0]
 
+    def a_has_same_priority_as_b(self, a:Node, b:Node) -> bool:
+        """
+        Determines whether nodes "a" and "b" have identical priorities... which is independent of self.is_min_heap.
+        :param a: the first node to consider
+        :param b: the second node to consider
+        :return: whether they have matching priorities.
+        """
+        return a[0]==b[0]
+
+
     def is_empty(self) -> bool:
         return len(self) == 0
 
