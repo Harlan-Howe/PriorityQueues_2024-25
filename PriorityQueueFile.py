@@ -32,7 +32,7 @@ class PriorityQueue (Generic[T]):
             return self.my_tree[index]
         raise IndexError(f"Index {index} is out of bounds for tree of size {len(self)}")
 
-    def set_node_at_index(self, in_node: Node, index: int):
+    def set_node_at_index(self, in_node: Node, index: int) -> Node:
         """
         changes the node at index to in_node and returns the old node.
         :param in_node: the new node to be stored in this location.
@@ -76,7 +76,7 @@ class PriorityQueue (Generic[T]):
         """
         return int((index - 1) / 2)  # yay, integer math!
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.my_tree)
 
     def in_bounds(self, index: int) -> bool:
@@ -152,7 +152,7 @@ class PriorityQueue (Generic[T]):
     def __repr__(self) -> str:
         return self.__str__()
 
-    def to_color_string(self, indices_to_color: Optional[List[int]] = None):
+    def to_color_string(self, indices_to_color: Optional[List[int]] = None) -> str:
         """
         Draws a string representation of this tree, without changing it. For all items in the indices list,
         they will show up in a different color.
